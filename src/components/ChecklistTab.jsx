@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Check, X, Plus } from 'lucide-react';
 
 export default function ChecklistTab({ checklists, onUpdateChecklist }) {
   const [newItemText, setNewItemText] = useState('');
@@ -48,10 +49,12 @@ export default function ChecklistTab({ checklists, onUpdateChecklist }) {
               className={`checkbox ${item.completed ? 'checked' : ''}`}
               onClick={() => handleToggle(item.id)}
             >
-              {item.completed && '✓'}
+              {item.completed && <Check size={18} strokeWidth={3} />}
             </button>
             <span className="checklist-text">{item.text}</span>
-            <button className="del-btn" onClick={() => handleDelete(item.id)}>×</button>
+            <button className="del-btn" onClick={() => handleDelete(item.id)}>
+              <X size={18} strokeWidth={2.5} />
+            </button>
           </div>
         ))}
 
@@ -63,7 +66,9 @@ export default function ChecklistTab({ checklists, onUpdateChecklist }) {
             placeholder="Add new item..."
             className="add-item-input"
           />
-          <button type="submit" className="add-item-btn">+</button>
+          <button type="submit" className="add-item-btn">
+            <Plus size={24} strokeWidth={2.5} />
+          </button>
         </form>
       </div>
     </div>

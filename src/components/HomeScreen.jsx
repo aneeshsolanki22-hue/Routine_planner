@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Play, Trophy, Star, CheckSquare } from 'lucide-react';
 
 function formatTime(t) {
   const [h, m] = t.split(':');
@@ -23,10 +24,10 @@ function RoutineCard({ index, routine, streaks, completionHistory, onPlay }) {
   );
 
   return (
-    <div className="routine-card" onClick={onPlay}>
+    <div className="routine-card" onClick={onPlay} style={{cursor: 'pointer'}}>
       <div className="routine-card-left">
         <div className="routine-card-number">
-          {streak >= 7 ? '🏆' : streak >= 3 ? '⭐' : index}
+          {streak >= 7 ? <Trophy size={18} color="#FFD700" /> : streak >= 3 ? <Star size={18} color="#FFD700" /> : index}
         </div>
       </div>
       <div className="routine-card-content">
@@ -35,19 +36,14 @@ function RoutineCard({ index, routine, streaks, completionHistory, onPlay }) {
           {formatTime(routine.startTime)} – {formatTime(routine.endTime)}
           <span className="routine-card-duration">· {totalMins(routine.tasks)}m</span>
         </div>
-        <div className="routine-card-icons">
-          {routine.tasks.slice(0, 5).map((t) => (
-            <span key={t.id} className="task-icon-sm">{t.icon}</span>
-          ))}
-        </div>
       </div>
       <div className="routine-card-right">
-        {doneToday && <span className="done-badge">✓</span>}
+        {doneToday && <span className="done-badge"><CheckSquare size={20} /></span>}
         {streak > 0 && (
-          <span className="streak-badge">🔥{streak}</span>
+          <span className="streak-badge"><Trophy size={12} style={{marginRight: '4px'}}/>{streak}</span>
         )}
         <button className="play-btn" onClick={(e) => { e.stopPropagation(); onPlay(); }} aria-label="Start routine">
-          ▶
+          <Play size={16} fill="currentColor" style={{ marginLeft: '2px' }} />
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTimer } from '../hooks/useTimer';
+import { getIcon } from '../utils/iconRegistry';
 
 export default function TimerMode({ routine, onComplete, onNavigate }) {
   const [currentTaskIdx, setCurrentTaskIdx] = useState(0);
@@ -46,7 +47,7 @@ export default function TimerMode({ routine, onComplete, onNavigate }) {
       </div>
 
       <div className="timer-main">
-        <div className="timer-icon">{task.icon}</div>
+        <div className="timer-icon">{getIcon(task.icon, { size: 100, strokeWidth: 1.5, color: "rgba(255,255,255,0.7)" })}</div>
         <h2 className="timer-task-name">{task.name}</h2>
         <div className={`timer-clock ${isFinishing ? 'timer-pulse' : ''}`}>
           {timer.display}

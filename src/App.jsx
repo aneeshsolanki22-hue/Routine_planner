@@ -5,6 +5,7 @@ import DetailView from './components/DetailView';
 import TimerMode from './components/TimerMode';
 import EditMode from './components/EditMode';
 import ChecklistTab from './components/ChecklistTab';
+import { CalendarDays, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   const [data, updateData] = useStorage();
@@ -123,6 +124,14 @@ export default function App() {
             onNavigate={navigate} 
           />
         )}
+        {view.name === 'add' && (
+          <EditMode 
+            routine={{ id: `routine_${Date.now()}`, name: '', startTime: '09:00', endTime: '10:00', tasks: [] }} 
+            onSave={handleSaveRoutine}
+            onDelete={() => navigate('home')}
+            onNavigate={navigate} 
+          />
+        )}
       </main>
 
       {/* Bottom Nav if on Home */}
@@ -132,14 +141,14 @@ export default function App() {
             className={`nav-btn ${activeTab === 'routine' ? 'active' : ''}`}
             onClick={() => setActiveTab('routine')}
           >
-            <span className="nav-icon">📅</span>
+            <span className="nav-icon"><CalendarDays size={20} /></span>
             Routine
           </button>
           <button 
             className={`nav-btn ${activeTab === 'checklist' ? 'active' : ''}`}
             onClick={() => setActiveTab('checklist')}
           >
-            <span className="nav-icon">✅</span>
+            <span className="nav-icon"><CheckCircle2 size={20} /></span>
             Checklist
           </button>
         </nav>

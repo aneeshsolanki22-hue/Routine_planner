@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getIcon, IconMap } from '../utils/iconRegistry';
 
 export default function EditMode({ routine, onSave, onDelete, onNavigate }) {
   const [draft, setDraft] = useState(() => JSON.parse(JSON.stringify(routine)));
@@ -18,7 +19,7 @@ export default function EditMode({ routine, onSave, onDelete, onNavigate }) {
       ...prev,
       tasks: [
         ...prev.tasks, 
-        { id: `task_new_${Date.now()}`, name: 'New Task', duration: 5, icon: '📝', order: prev.tasks.length + 1 }
+        { id: `task_new_${Date.now()}`, name: 'New Task', duration: 5, icon: 'activity', order: prev.tasks.length + 1 }
       ]
     }));
   };
@@ -55,13 +56,17 @@ export default function EditMode({ routine, onSave, onDelete, onNavigate }) {
       <div className="edit-task-list">
         {draft.tasks.map((task, idx) => (
           <div key={task.id} className="edit-task-item">
-            <input 
-              className="edit-icon-input" 
-              value={task.icon} 
-              onChange={(e) => handleTaskChange(idx, 'icon', e.target.value)}
-              maxLength={2}
-            />
-            <input 
+            <div className="task-icon-sm">
+               {getIcon(task.icon, { size: 16 })}
+            </div>
+            <select 
+               className="edit-icon-select"
+               value={task.icon || 'activity'}
+               onChange={(e) => handleTaskChange(idx, 'icon', e.target.value)}
+            >
+               {Object.keys(IconMap).map(k => <option key={k} value={k}>{k}</option>)}
+            </select>
+            <input  
               className="edit-name-input" 
               value={task.name} 
               onChange={(e) => handleTaskChange(idx, 'name', e.target.value)}

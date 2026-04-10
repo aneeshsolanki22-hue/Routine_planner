@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { sampleData } from '../data/sampleData';
 
-const STORAGE_KEY = 'routine_planner_v1';
+const STORAGE_KEY = 'ROUTINE_DATA_V2';
 
 function loadFromStorage() {
   try {
